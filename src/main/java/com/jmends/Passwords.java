@@ -3,6 +3,24 @@ package com.jmends;
 import java.util.Random;
 
 public class Passwords {
+    private int id;
+    private int user_id;
+    private String website;
+    private String username;
+    private String password;
+//
+//    public Passwords(int id, int user_id, String website, String username, String password) {
+//        this.id = id;
+//        this.user_id = user_id;
+//        this.website = website;
+//        this.username = username;
+//        this.password = password;
+//    }
+//
+//    public Passwords() {
+//
+//    }
+
     public String generatePassword() {
         Random random = new Random();
         String[] letters = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
@@ -35,7 +53,7 @@ public class Passwords {
 
         StringBuilder password = new StringBuilder();
 
-        for(int i = 0; i < passwordLength; i++){
+        for (int i = 0; i < passwordLength; i++) {
             password.append(allCharacters[random.nextInt(allCharacters.length)]);
         }
 
