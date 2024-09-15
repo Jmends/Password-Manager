@@ -16,10 +16,20 @@ public class DatabaseHandler {
     public static void initializeDatabase() {
 
         try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
-            String createUsersTable = "CREATE TABLE IF NOT EXISTS users(" + "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+            String createUsersTable = "CREATE TABLE IF NOT EXISTS users(" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "username TEXT NOT NULL UNIQUE, " +
                     "password_hash TEXT NOT NULL);";
             stmt.execute(createUsersTable);
+
+            String createPasswordsTable = "CREATE TABLE IF NOT EXISTS password(" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "user_id INTEGER, " +
+                    "website TEXT NOT NULL, " +
+                    "username TEXT NOT NULL, " +
+                    "password TEXT NOT NULL, " +
+                    "FOREIGN KEY(user_id) REFERENCES users(id))";
+            stmt.execute(createPasswordsTable);
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
