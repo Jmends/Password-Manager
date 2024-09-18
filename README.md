@@ -10,6 +10,7 @@ This is a password manager application built in Java with SQLite as the database
 - **Add Password Entries**: Store website, username, and password details.
 - **View Passwords**: View all stored password entries.
 - **Edit/Delete Passwords**: Update or remove password entries.
+- **Generate Random Password**: Have a random password generated for you to use.
 - **Password Security**: User account passwords are hashed for secure storage.
 
 ---
