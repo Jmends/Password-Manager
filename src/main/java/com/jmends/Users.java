@@ -36,8 +36,22 @@ public class Users {
         return hexString.toString();
     }
 
-    public void createAccount(String username, String password) {
-        try (Connection conn = DatabaseHandler.getConnection()) {
+    public void createAccount(String username, String password) throws NoSuchAlgorithmException {
+        String hashedPassword = hashPassword(password);
+
+        String sql = "INSERT INTO users (username,password) VALUES (?,?)";
+        try (Connection conn = DatabaseHandler.getConnection();
+             PreparedStatement psmt = conn.prepareStatement(sql)) {
+            psmt.setString(1, username);
+            psmt.setString(2, hashedPassword);
+
+            int rowsAffected = psmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Account creation successful!");
+            } else {
+                System.out.println("Account creation failed");
+            }
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
