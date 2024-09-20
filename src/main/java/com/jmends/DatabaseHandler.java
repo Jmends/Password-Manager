@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DatabaseHandler {
-    private static final String URL = "jdbc:sqlite:manpass.db";
+    private static final String URL = "jdbc:sqlite:passwordmanager.db";
 
     public static Connection getConnection() throws SQLException {
 
