@@ -23,8 +23,8 @@ public class DatabaseHandler {
             stmt.execute(createUsersTable);
 
             String createPasswordsTable = "CREATE TABLE IF NOT EXISTS password(" +
-                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "user_id INTEGER, " +
+                    "user_id INTEGER," +
+                    "password_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "website TEXT NOT NULL, " +
                     "username TEXT NOT NULL, " +
                     "password TEXT NOT NULL, " +
