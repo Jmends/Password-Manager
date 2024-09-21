@@ -4,13 +4,14 @@ import org.junit.jupiter.api.Test;
 
 import java.security.NoSuchAlgorithmException;
 
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class UsersTest {
 
     @Test
-    void hashPasswordTest() throws NoSuchAlgorithmException {
-        Users user = new Users();
+    void hashPasswordTest() throws NoSuchAlgorithmException{
+
 
         String plainPassword = "password123";
         String hashedPassword = Users.hashPassword(plainPassword);
@@ -26,4 +27,20 @@ class UsersTest {
 
 
     }
+
+    @Test
+    void accountCreationTest()  {
+
+        assertTrue(Users.createAccount("test22","test123"),"Should be true");
+        assertTrue(Users.createAccount("JON123","password"),"Should be true");
+
+    }
+
+    @Test
+    void loginUserTest() {
+        assertNotNull(Users.login("JON123","password"));
+        assertNull(Users.login("test99","pass123word"));
+    }
+
+
 }
