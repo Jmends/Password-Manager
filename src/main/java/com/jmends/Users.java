@@ -29,7 +29,7 @@ public class Users {
         return username;
     }
 
-    public static Users login(String username,String password) throws SQLException {
+    public static Users login(String username,String password)  {
         try(Connection conn = DatabaseHandler.getConnection()){
             String hashedPassword = hashPassword(password);
             String sql = "SELECT id, username FROM users WHERE username = ? AND password_hash = ?";
@@ -59,6 +59,7 @@ public class Users {
             return false;
         }
         String sql = "INSERT INTO users(username,password_hash) VALUES (?,?)";
+
 
 
         try(Connection conn = DatabaseHandler.getConnection();
