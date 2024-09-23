@@ -1,5 +1,8 @@
 package com.jmends;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Random;
 
 public class Passwords {
@@ -8,18 +11,18 @@ public class Passwords {
     private String website;
     private String username;
     private String password;
-//
-//    public Passwords(int id, int user_id, String website, String username, String password) {
-//        this.id = id;
-//        this.user_id = user_id;
-//        this.website = website;
-//        this.username = username;
-//        this.password = password;
-//    }
-//
-//    public Passwords() {
-//
-//    }
+
+    public Passwords(int id, int user_id, String website, String username, String password) {
+        this.id = id;
+        this.user_id = user_id;
+        this.website = website;
+        this.username = username;
+        this.password = password;
+    }
+
+    public Passwords() {
+
+    }
 
     public String generatePassword() {
         Random random = new Random();
@@ -58,6 +61,26 @@ public class Passwords {
         }
 
         return password.toString();
+
+    }
+
+    public static void addPassword(int user_id, String website, String username, String password) {
+        String sql = "INSERT INTO passwords (user_id,website,password) VALUES (?,?,?,?)";
+        try(Connection conn = DatabaseHandler.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)){
+
+            pstmt.setInt(1,user_id);
+            pstmt.setString(2,website);
+            pstmt.setString(3,username);
+            pstmt.setString(4,password);
+            pstmt.executeUpdate();
+            System.out.println("Password added successfully");
+
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+
+        }
+
 
     }
 }
