@@ -2,6 +2,7 @@ package com.jmends;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Random;
 
@@ -66,22 +67,54 @@ public class Passwords {
 
     public static void addPassword(int user_id, String website, String username, String password) {
         String sql = "INSERT INTO passwords (user_id,website,password) VALUES (?,?,?,?)";
-        try(Connection conn = DatabaseHandler.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(sql)){
+        try (Connection conn = DatabaseHandler.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1,user_id);
-            pstmt.setString(2,website);
-            pstmt.setString(3,username);
-            pstmt.setString(4,password);
+            pstmt.setInt(1, user_id);
+            pstmt.setString(2, website);
+            pstmt.setString(3, username);
+            pstmt.setString(4, password);
             pstmt.executeUpdate();
             System.out.println("Password added successfully");
 
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
 
 
         }
 
+
+    }
+
+    public static void viewPassword(int user_id) {
+        String sql = "SELECT password_id, website, password FROM password WHERE user_id = ?";
+        try (Connection conn = DatabaseHandler.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, user_id);
+            ResultSet rs = pstmt.executeQuery();
+            int lineNumber = 1;
+
+            while (rs.next()) {
+                System.out.println(lineNumber + ". Website: " + rs.getString("website")
+                        + " UserName: " + rs.getString("username")
+                        + " Password: " + rs.getString("password"));
+
+                lineNumber++;
+
+                if (lineNumber == 1) {
+                    System.out.println("No passwords have been added");
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.print(e.getMessage());
+        }
+
+    }
+
+    public static void deletePassword(int user_id, int lineNumber) {
+            //add logic for deleting password
 
     }
 }
